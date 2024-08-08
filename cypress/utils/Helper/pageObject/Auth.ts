@@ -15,18 +15,47 @@ export const btnChangeAuthPage = `#btn-change-auth-page`;
 export const chbRememberMe = `.checkmark`;
 
 export const lblHead = `h1[class='text-center']`//`Let’s get started`
-export const lbl1 =`p[class='text-center text-xs mb-[30px]']`; //`Create your OWM account now!`
+export const lbl1 =`h1.text-center + p`; //`Create your OWM account now!`
 export const lblEmailSignUp = `label[for="input-email"]`; 
-export const lblPasswordSignUp = ` label[for='input-pass']`;
+export const lblPasswordSignUp = `label[for='input-pass']`;
 export const lblEmailSignIn = `label[for='input-username']`; 
 export const lblPasswordSignIn = `label[for='input-user-pass']`;
 export const lblRememberMe = `.text`;
 export const lblNearChangePage = `.text-body`;
 export const lblTerms = `p[class='text-xs text-center mb-[16px]']`;
 export const lblOr = `span[class='text-xs z-10 bg-white px-[10px]']`;
+export const lblEmailResetPswd = `label`;
 
 export const errorMsg = `div[role='alert'] div:nth-child(2)`;
 export const alert = `.error-message`;
+
+export const btnSendResetLink =`button[type='submit']`;
+export const btnBackToLogIn = `#reset-password-back-button`;
+export const btnBackTop = `#reset-password-back-top-button`;
+
+const btGoBack = `#go-back-button`;
+const lblEmailTitle = `#email-sent-title`;
+const lblEmailDescriprion = `#email-sent-description`;
+const lblResendText = `#email-sent-resend-text`;
+const btnResendEmail=`#resend-email-button`;
+
+//registration
+const lblDescribeYourselfTitle = `#user-roles-title`;//"How would you best describe yourself?"
+const lblDescribeYourselfSubtitle = `#user-roles-description`;//"We get it, no one puts you in a box, but for right now, we need you to select one. Sorry not sorry."
+const btnIndividual = `#user-roles-individual`;
+const lblIndividual = `button[id='user-roles-individual'] span[class='text-primary']`;
+const lblAboutYourselfTitle = `#step-1-title`;
+const lblAboutYourselfSubtitle = `#step-1-subtitle`;
+const lblFirstName = `#first-name-label`; //First name
+const lblLastame = `#last-name-label`;//Last name
+const lblPhoneNumber = `#phone-label`;//Phone number (optional)
+const fldFirstName = `input[name="firstName"]`;
+const fldLastame = `input[name="lastName"]`;
+const fldPhoneNumber = `input[name="phone"]`;
+const lblBusiessCompany = `#business-company-text`;//Do you do business as a company? 
+const btAddCompany = `#business-company-button`;
+
+
 
 export function changeAuthPage(){
     cy.get(btnChangeAuthPage).click();
@@ -104,8 +133,8 @@ export function clickSignUpBtn(){
     cy.get(btnSingUp).click();
 }
 export function checkPlaceholdersEmailPassword(plhdEmailText, plhdPasswordText){
-    Common_Actions.checkPlaceholderText(fldEmail, plhdEmailText);
-    Common_Actions.checkPlaceholderText(fldPassword, plhdPasswordText);
+    plhdEmailText? Common_Actions.checkPlaceholderText(fldEmail, plhdEmailText): `Parameter is not provided`;
+    plhdPasswordText? Common_Actions.checkPlaceholderText(fldPassword, plhdPasswordText): `Parameter is not provided`;
 
 }
 export function checkRememberMeChbIsNotSelected(){
@@ -120,6 +149,53 @@ export function checkAlertForEmailPassword(alertEmailText, alertPasswordText){
 }
 export function clickContinueWithGoogleBtn(){
     cy.get(btnContinueWithGoogle).click();
+}
+export function login(emailText, passwordText ){
+    cy.visit('https://stage.owm.ai/auth');
+          
+    fillSignInPage({emailText, passwordText});
+    clickSignInBtn();
+}
+
+export function checkLabelsResetPasswordPage({lblNearChangePageText, lblChangeAuthText, lblHeadText, lbl1Text, 
+    lblEmailText, lblSendResetLinkBtnText, btnBackToLogInBtnText, step1=true}){
+        Common_Actions.checkElementText(lblNearChangePage, lblNearChangePageText);
+        Common_Actions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
+        Common_Actions.checkElementText(lblHead, lblHeadText);
+        Common_Actions.checkElementText(lbl1, lbl1Text);
+        if (step1){
+            Common_Actions.checkElementText(lblEmailResetPswd, lblEmailText);
+            Common_Actions.checkElementText(btnSendResetLink, lblSendResetLinkBtnText)
+        } else{
+            Common_Actions.checkElementText(btnBackToLogIn, btnBackToLogInBtnText)
+        }       
+}
+export function clickForgotPasswordBtn(){
+    cy.get(btnForgonPassword).click();
+}
+export function checkSendResetLinkDisabled(){
+    Common_Actions.checkElementIsDisabled(btnSendResetLink);
+}
+export function checkSendResetLinkEnabled(){
+    Common_Actions.checkElementIsEnabled(btnSendResetLink);
+}
+export function fillEmailForResetPassword(emailForResetPasswordText, clearEmail = false){
+    clearEmail? cy.get(fldEmail).clear(): cy.get(fldEmail).clear().type(emailForResetPasswordText);
+}
+export function clickSendResetLinkBnt(){
+    cy.get(btnSendResetLink).click();
+}
+export function checkBackToLogInBtnEnabled(){
+    Common_Actions.checkElementIsEnabled(btnBackToLogIn);
+}
+export function checkBackAtTheTopEnabled(){
+    Common_Actions.checkElementIsEnabled(btnBackTop);
+}
+export function clickBackToLogInBtn(){
+    cy.get(btnBackToLogIn).click();
+}
+export function clickBackAtTheTop(){
+    cy.get(btnBackTop).click();
 }
 
 /*

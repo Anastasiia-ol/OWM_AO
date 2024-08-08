@@ -23,7 +23,7 @@ describe('Auth - Sign In', () => {
       const errorPasswordEmailData = `Password is invalid`;
       let emailData = `anastasia.oliyarnyk+ci01@scrumlaunch.com`;
       let passwordData = `21250178OwM`;
-      let incorrectEmailData = `incorrect@scrumlaunch.com`;
+      let nonExistentEmailData = `incorrect@scrumlaunch.com`;
       const incorrectPasswordData = `Password is invalid`;
       const alertEmailData = "Incorrect format";
       const alertPasswordData = "This field is required";
@@ -91,7 +91,7 @@ describe('Auth - Sign In', () => {
           cy.visit('https://stage.owm.ai/auth');
           
           Auth.fillSignInPage({
-            emailText: incorrectEmailData,
+            emailText: nonExistentEmailData,
             passwordText: passwordData
           });
           Auth.checkSignInBtnEnabled();
@@ -244,6 +244,7 @@ describe('Auth - Sign In', () => {
           Auth.checkErrorMsg(errorMsgEmailConfirmationData);
           
         });
+
 
     });
 

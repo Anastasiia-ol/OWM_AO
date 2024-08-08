@@ -10,7 +10,7 @@
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^6.0.2",
     "@cypress/xpath": "^2.0.3",
-    "cypress": "^13.13.1",
+    "cypress": "^13.13.2",
     "cypress-file-upload": "^5.0.8",
     "cypress-iframe": "^1.0.1",
     "cypress-social-logins": "^1.14.2",
@@ -57,6 +57,7 @@
     "common-tags": "^1.8.2",
     "core-util-is": "^1.0.2",
     "cross-spawn": "^7.0.3",
+    "cypress-mailslurp": "^1.10.0",
     "dashdash": "^1.14.1",
     "dayjs": "^1.11.12",
     "debug": "^4.3.5",
