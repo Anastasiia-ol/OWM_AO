@@ -261,18 +261,3 @@ export function clickBackToResetPasswordBtn(){
     cy.get(btnBackToResetPassword).click();
 }
 
-
-/*
-export function check_organization_name(name) {
-    Common_Actions.check_element_has_value(organization_name, name)
-}
-
-Common_Actions.check_element_text(info_mongoose_key_text_xpath, info_mongoose_key,0,true); // for labels
-
-export function fill_mongoose_key_field(mongoose_key, clear = false){
-    clear ? cy.get(mongoose_key_field, { timeout: 10*1000 }).clear() :cy.get(mongoose_key_field).clear().type(mongoose_key);
-}
-
-export  function check_save_changes_disabled(){
-    Common_Actions.check_element_is_disabled(save_changes_button);
-}*/
