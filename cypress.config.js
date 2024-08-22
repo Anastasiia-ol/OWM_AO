@@ -10,8 +10,9 @@ module.exports = defineConfig({
       // implement node event listeners here
        //return require('./cypress/plugins/index.js')(on, config)
     },
-   // baseUrl: 'https://stage.owm.ai/auth/',
-    //specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
-    //defaultCommandTimeout: 130000, // Set global timeout to 130 seconds
+     baseUrl: 'https://stage.owm.ai/auth/',
+     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+     //defaultCommandTimeout: 130000, // Set global timeout to 130 seconds
+     browser: 'chrome',
   },
 });

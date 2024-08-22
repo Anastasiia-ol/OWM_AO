@@ -4,5 +4,7 @@
 // cypress/support/index.js
 require('cypress-xpath');
 
+cy.faker = require('faker');
+
 
 

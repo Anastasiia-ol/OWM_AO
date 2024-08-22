@@ -1,4 +1,6 @@
 import * as Auth from "../utils/Helper/pageObject/Auth";
+import * as Home from "../utils/Helper/pageObject/Home";
+import * as Common_Actions from "../utils/Helper/pageObject/Common_Actions";
 
 describe('Auth - Sign In', () => {
 
@@ -151,7 +153,6 @@ describe('Auth - Sign In', () => {
              lblOrText: lblOrData,
              lblContinueWithGoogleText: lblContinueWithGoogleData, 
              lblContinueWithLinkedInText: lblContinueWithLinkedInData});
-    
         });
 
         /*
@@ -198,8 +199,7 @@ describe('Auth - Sign In', () => {
             clearEmail: true
           });
           Auth.checkAlertForEmailPassword(alertEmailData);
-          Auth.checkSignInBtnDisabled();
-          
+          Auth.checkSignInBtnDisabled();     
         });
 
         /*
@@ -209,7 +209,7 @@ describe('Auth - Sign In', () => {
         1. Navigate to Auth page
         2. Fill "Email address" and "Password" fields with correct data
         5. Click "Sign In" button
-        6. Verify that Home Page is opened
+        6. Verify that Welcome text is shown
         */
         it('Verify successful login.', () => {
           cy.visit('https://stage.owm.ai/auth');
@@ -219,8 +219,9 @@ describe('Auth - Sign In', () => {
             passwordText: passwordData
           });
           Auth.clickSignInBtn();
-          //Verify elements on Home Page
-    
+          Common_Actions.waitForElementIsVisible(Home.btnGetStarted);
+          Home.checkWelcomeText();
+
         });
 
          /*
@@ -241,8 +242,7 @@ describe('Auth - Sign In', () => {
             passwordText: passwordData
           });
           Auth.clickSignInBtn();
-          Auth.checkErrorMsg(errorMsgEmailConfirmationData);
-          
+          Auth.checkErrorMsg(errorMsgEmailConfirmationData); 
         });
 
 

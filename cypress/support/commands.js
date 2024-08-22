@@ -42,6 +42,18 @@ import 'cypress-wait-until';
 
 // See more details about "attachFile" feature here: https://github.com/abramenal/cypress-file-upload
 import 'cypress-file-upload';
+//
+/*
+const faker = require('faker');
+
+Cypress.Commands.add('generateRandomEmail', () => {
+  const randomEmail = `anastasia.oliyarnyk${faker.random.alphaNumeric(5)}@scrumlaunch.com`;
+  return randomEmail;
+});*/
+Cypress.Commands.add('generateRandomEmail', () => {
+  const randomString = Math.random().toString(36).substring(2, 7);
+  return `anastasia.oliyarnyk+ci${randomString}@scrumlaunch.com`;
+});
 // for email
 import 'cypress-mailslurp';
 //Login
@@ -96,3 +108,4 @@ function logIntoGoogle(username, password, name) {
 
   cy.get('h6.dropdown-header').should('contain', name)
 }
+
