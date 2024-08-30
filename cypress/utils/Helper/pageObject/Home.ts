@@ -1,4 +1,4 @@
-import * as Common_Actions from "./Common_Actions";
+import * as CommonActions from "./CommonActions";
 
 const lblWelcome = `#welcome-text`;
 const btnLogout = `#logout-button`;
@@ -17,5 +17,5 @@ const lblUserEmailBottom = `#sidebar-desktop-profile-email`;
 const btnViewingAs = `#header-profile-dropdown-button`;
 
 export function checkWelcomeText (onlyWelcome = true, userNameText){
-    onlyWelcome? Common_Actions.checkElementContainText(lblWelcome, `Welcome`): Common_Actions.checkElementText(lblWelcome, `Welcome ${userNameText}`)
+    onlyWelcome? CommonActions.checkElementContainText(lblWelcome, `Welcome`): CommonActions.checkElementText(lblWelcome, `Welcome ${userNameText}`)
 }

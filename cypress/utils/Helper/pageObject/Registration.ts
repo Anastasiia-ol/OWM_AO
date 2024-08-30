@@ -1,4 +1,4 @@
-import * as Common_Actions from "./Common_Actions";
+import * as CommonActions from "./CommonActions";
 
 const lblDescribeYourselfTitle = `#user-roles-title`;//"How would you best describe yourself?"
 const lblDescribeYourselfSubtitle = `#user-roles-description`;//"We get it, no one puts you in a box, but for right now, we need you to select one. Sorry not sorry."

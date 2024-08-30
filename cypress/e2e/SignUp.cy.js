@@ -1,5 +1,5 @@
 import * as Auth from "../utils/Helper/pageObject/Auth";
-import * as Common_Actions from "../utils/Helper/pageObject/Common_Actions";
+import * as CommonActions from "../utils/Helper/pageObject/CommonActions";
 
 
 describe('Auth - Sign Up', () => {
@@ -176,11 +176,10 @@ describe('Auth - Sign Up', () => {
           });
           Auth.clickSignUpBtn();
           //cy.wait(3000);
-          Common_Actions.waitForElementIsVisible(Auth.btnGoBack);
+          CommonActions.waitForElementIsVisible(Auth.btnGoBack);
           Auth.checkLblSuccessSingUp(lblNearChangePageData, lblChangeAuthData, lblEmailTitleData, lblEmailDescriprionData, lblResendTextData, lbllResendEmailBtnData);
           Auth.checkGoBackBtnIsEnabled();
           Auth.checkResendConfirmationEmailBtnIsEnabled();
-          //Auth.clickResendConfirmationEmailBtn();
         });
 
          /* 
@@ -206,11 +205,11 @@ describe('Auth - Sign Up', () => {
           });
           Auth.clickSignUpBtn();
          // cy.wait(3000);
-         Common_Actions.waitForElementIsVisible(Auth.btnGoBack);
+         CommonActions.waitForElementIsVisible(Auth.btnGoBack);
           Auth.checkGoBackBtnIsEnabled();
           Auth.clickGoBackBtn();
          // cy.wait(3000);
-         Common_Actions.waitForElementIsVisible(Auth.btnSingUp);
+         CommonActions.waitForElementIsVisible(Auth.btnSingUp);
           Auth.checkLabelsSignInPage({
             signUpFlag: true,
             lblNearChangePageText: lblNearChangePageData, 
@@ -258,7 +257,7 @@ describe('Auth - Sign Up', () => {
             passwordText: passwordData
           });
           Auth.clickSignUpBtn();
-          Common_Actions.waitForElementIsVisible(Auth.btnGoBack);
+          CommonActions.waitForElementIsVisible(Auth.btnGoBack);
           //cy.wait(3000);
           Auth.changeAuthPage();
           Auth.checkLabelsSignInPage({
@@ -288,7 +287,7 @@ describe('Auth - Sign Up', () => {
         6. Verify that "Send Confirmation Email" button is enabled
         7. Verify page after send
         */
-       // blocked by https://linear.app/owm/issue/OWM-157/demo-environment-bugsmoments
+       
 
         it('Verify Resend Confirmation Email.', () => {
           
@@ -302,11 +301,11 @@ describe('Auth - Sign Up', () => {
             emailText: randomEmailData,
             passwordText: passwordData
           });
-          Auth.clickSignUpBtn();
-          Common_Actions.waitForElementIsVisible(Auth.btnGoBack);
+          Auth.clickSignUpBtn(); 
+          CommonActions.waitForElementIsVisible(Auth.btnGoBack);
           //cy.wait(3000);
           Auth.checkResendConfirmationEmailBtnIsEnabled();
-          Auth.clickResendConfirmationEmailBtn();
+          Auth.clickResendConfirmationEmailBtn(); Auth.clickResendConfirmationEmailBtn();
           Auth.checkLblAfterResendingEmailConfirmation(lblAfterResendingEmailData);
           Auth.checkResendConfirmationEmailBtnNotExist();
         });

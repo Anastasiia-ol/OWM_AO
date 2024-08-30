@@ -1,6 +1,6 @@
 import * as Auth from "../utils/Helper/pageObject/Auth";
 import * as Home from "../utils/Helper/pageObject/Home";
-import * as Common_Actions from "../utils/Helper/pageObject/Common_Actions";
+import * as CommonActions from "../utils/Helper/pageObject/CommonActions";
 
 describe('Auth - Sign In', () => {
 
@@ -219,7 +219,7 @@ describe('Auth - Sign In', () => {
             passwordText: passwordData
           });
           Auth.clickSignInBtn();
-          Common_Actions.waitForElementIsVisible(Home.btnGetStarted);
+          CommonActions.waitForElementIsVisible(Home.btnGetStarted);
           Home.checkWelcomeText();
 
         });

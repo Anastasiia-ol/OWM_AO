@@ -1,4 +1,4 @@
-import * as Common_Actions from "./Common_Actions";
+import * as CommonActions from "./CommonActions";
 
 const fldEmail =`input[name = "email"]`;
 const fldPassword =`input[name = "password"]`;
@@ -29,7 +29,7 @@ const lblAfterResendingEmail =`span[class='text-button !text-success-500']`;
 const errorMsg = `div[role='alert'] div:nth-child(2)`;
 const alert = `.error-message`;
 
-export const btnSendResetLink =`button[type='submit']`;
+export const btnSendResetLink =`button[type='submit']`;// #resend-email-button
 export const btnBackToLogIn = `#reset-password-back-button`;
 const btnBackTop = `#reset-password-back-top-button`;
 
@@ -52,61 +52,61 @@ export function changeAuthPage(){
 }
 
 export function checkSignInBtnDisabled(){
-    Common_Actions.checkElementIsDisabled(btnSignIn);
+    CommonActions.checkElementIsDisabled(btnSignIn);
 }
 export function checkSignInBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnSignIn);
+    CommonActions.checkElementIsEnabled(btnSignIn);
 }
 export function checkSignUpBtnDisabled(){
-    Common_Actions.checkElementIsDisabled(btnSingUp);
+    CommonActions.checkElementIsDisabled(btnSingUp);
 }
 export function checkSignUpBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnSingUp);
+    CommonActions.checkElementIsEnabled(btnSingUp);
 }
 export function checkIWannaOWMBtnEnable(){
-    Common_Actions.checkElementIsEnabled(btnSingUp);
+    CommonActions.checkElementIsEnabled(btnSingUp);
 
 }
 export function checkIWannaOWMBtnDisabled(){
-    Common_Actions.checkElementIsDisabled(btnSingUp);
+    CommonActions.checkElementIsDisabled(btnSingUp);
 
 }
 export function checkChangePageBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnChangeAuthPage);
+    CommonActions.checkElementIsEnabled(btnChangeAuthPage);
 }
 export function checkContinueWithGoogleBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnContinueWithGoogle);
+    CommonActions.checkElementIsEnabled(btnContinueWithGoogle);
 }
 export function checkContinueWithLinkedIBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnContinueWithLinkedIn);
+    CommonActions.checkElementIsEnabled(btnContinueWithLinkedIn);
 }
 export function checkForgotPasswordBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnForgonPassword);
+    CommonActions.checkElementIsEnabled(btnForgonPassword);
 }
 export function checkLabelsSignInPage({signUpFlag = true, lblNearChangePageText, lblChangeAuthText, lblHeadText, lbl1Text, 
                                         lblEmailText, lblPasswordText,lblRememberMeText, lblForgotPasswordText, lblSignInBtnText, 
                                         lblSignUpBtnText, lblTermsText, lblOrText,
                                         lblContinueWithGoogleText, lblContinueWithLinkedInText}){
     if (signUpFlag){
-        Common_Actions.checkElementText(btnSingUp, lblSignUpBtnText)
-        Common_Actions.checkElementText(lblEmailSignUp, lblEmailText);
-        Common_Actions.checkElementText(lblPasswordSignUp, lblPasswordText);
+        CommonActions.checkElementText(btnSingUp, lblSignUpBtnText)
+        CommonActions.checkElementText(lblEmailSignUp, lblEmailText);
+        CommonActions.checkElementText(lblPasswordSignUp, lblPasswordText);
     }
     else{
-        Common_Actions.checkElementText(btnSignIn, lblSignInBtnText);
-        Common_Actions.checkElementText(lblRememberMe, lblRememberMeText);
-        Common_Actions.checkElementText(btnForgonPassword, lblForgotPasswordText);
-        Common_Actions.checkElementText(lblEmailSignIn, lblEmailText);
-        Common_Actions.checkElementText(lblPasswordSignIn, lblPasswordText);
+        CommonActions.checkElementText(btnSignIn, lblSignInBtnText);
+        CommonActions.checkElementText(lblRememberMe, lblRememberMeText);
+        CommonActions.checkElementText(btnForgonPassword, lblForgotPasswordText);
+        CommonActions.checkElementText(lblEmailSignIn, lblEmailText);
+        CommonActions.checkElementText(lblPasswordSignIn, lblPasswordText);
     }
-    Common_Actions.checkElementText(lblNearChangePage, lblNearChangePageText);
-    Common_Actions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
-    Common_Actions.checkElementText(lblHead, lblHeadText);
-    Common_Actions.checkElementText(lbl1, lbl1Text);
-    Common_Actions.checkElementText(lblTerms, lblTermsText);
-    Common_Actions.checkElementText(lblOr, lblOrText);
-    Common_Actions.checkElementText(btnContinueWithGoogle, lblContinueWithGoogleText);
-    Common_Actions.checkElementText(btnContinueWithLinkedIn, lblContinueWithLinkedInText);
+    CommonActions.checkElementText(lblNearChangePage, lblNearChangePageText);
+    CommonActions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
+    CommonActions.checkElementText(lblHead, lblHeadText);
+    CommonActions.checkElementText(lbl1, lbl1Text);
+    CommonActions.checkElementText(lblTerms, lblTermsText);
+    CommonActions.checkElementText(lblOr, lblOrText);
+    CommonActions.checkElementText(btnContinueWithGoogle, lblContinueWithGoogleText);
+    CommonActions.checkElementText(btnContinueWithLinkedIn, lblContinueWithLinkedInText);
 }
 export function fillSignInPage({emailText, passwordText, clearEmail = false, clearPassword = false}){
     emailText? cy.get(fldEmail).clear().type(emailText): `Parameter is not provided`;
@@ -123,18 +123,18 @@ export function clickSignUpBtn(){
     cy.get(btnSingUp).click();
 }
 export function checkPlaceholdersEmailPassword(plhdEmailText, plhdPasswordText){
-    plhdEmailText? Common_Actions.checkPlaceholderText(fldEmail, plhdEmailText): `Parameter is not provided`;
-    plhdPasswordText? Common_Actions.checkPlaceholderText(fldPassword, plhdPasswordText): `Parameter is not provided`;
+    plhdEmailText? CommonActions.checkPlaceholderText(fldEmail, plhdEmailText): `Parameter is not provided`;
+    plhdPasswordText? CommonActions.checkPlaceholderText(fldPassword, plhdPasswordText): `Parameter is not provided`;
 }
 export function checkRememberMeChbIsNotSelected(){
-    Common_Actions.checkCheckBoxIsNotSelected(chbRememberMe);
+    CommonActions.checkCheckBoxIsNotSelected(chbRememberMe);
 }
 export function checkErrorMsg(errorMsgText){
-    Common_Actions.checkElementText(errorMsg, errorMsgText);
+    CommonActions.checkElementText(errorMsg, errorMsgText);
 }
 export function checkAlertForEmailPassword({alertEmailText, alertPasswordText}){
-    alertEmailText? Common_Actions.checkElementText(alert, alertEmailText) : `The text is not specified`;
-    alertPasswordText? Common_Actions.checkElementText(alert, alertPasswordText, 1) : `The text is not specified`;
+    alertEmailText? CommonActions.checkElementText(alert, alertEmailText) : `The text is not specified`;
+    alertPasswordText? CommonActions.checkElementText(alert, alertPasswordText, 1) : `The text is not specified`;
 }
 export function clickContinueWithGoogleBtn(){
     cy.get(btnContinueWithGoogle).click();
@@ -147,16 +147,16 @@ export function login(emailText, passwordText ){
 
 export function checkLabelsResetPasswordPage({lblNearChangePageText, lblChangeAuthText, lblHeadText, lbl1Text, 
     lblEmailText, lblSendResetLinkBtnText, btnBackToLogInBtnText, step1=true}){
-        Common_Actions.checkElementText(lblNearChangePage, lblNearChangePageText);
-        Common_Actions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
-        Common_Actions.checkElementText(lbl1, lbl1Text);
+        CommonActions.checkElementText(lblNearChangePage, lblNearChangePageText);
+        CommonActions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
+        CommonActions.checkElementText(lbl1, lbl1Text);
         if (step1){
-            Common_Actions.checkElementText(lblEmailResetPswd, lblEmailText);
-            Common_Actions.checkElementText(lblHead, lblHeadText);
-            Common_Actions.checkElementText(btnSendResetLink, lblSendResetLinkBtnText);
+            CommonActions.checkElementText(lblEmailResetPswd, lblEmailText);
+            CommonActions.checkElementText(lblHead, lblHeadText);
+            CommonActions.checkElementText(btnSendResetLink, lblSendResetLinkBtnText);
         } else{
-            Common_Actions.checkElementText(btnBackToLogIn, btnBackToLogInBtnText);
-            Common_Actions.checkElementText(lblHeadResetPswdStep2, lblHeadText);
+            CommonActions.checkElementText(btnBackToLogIn, btnBackToLogInBtnText);
+            CommonActions.checkElementText(lblHeadResetPswdStep2, lblHeadText);
             
         }       
 }
@@ -164,10 +164,10 @@ export function clickForgotPasswordBtn(){
     cy.get(btnForgonPassword).click();
 }
 export function checkSendResetLinkDisabled(){
-    Common_Actions.checkElementIsDisabled(btnSendResetLink);
+    CommonActions.checkElementIsDisabled(btnSendResetLink);
 }
 export function checkSendResetLinkEnabled(){
-    Common_Actions.checkElementIsEnabled(btnSendResetLink);
+    CommonActions.checkElementIsEnabled(btnSendResetLink);
 }
 export function fillEmailForResetPassword(emailForResetPasswordText, clearEmail = false){
     clearEmail? cy.get(fldEmail).clear(): cy.get(fldEmail).clear().type(emailForResetPasswordText);
@@ -176,10 +176,10 @@ export function clickSendResetLinkBnt(){
     cy.get(btnSendResetLink).click();
 }
 export function checkBackToLogInBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnBackToLogIn);
+    CommonActions.checkElementIsEnabled(btnBackToLogIn);
 }
 export function checkBackAtTheTopEnabled(){
-    Common_Actions.checkElementIsEnabled(btnBackTop);
+    CommonActions.checkElementIsEnabled(btnBackTop);
 }
 export function clickBackToLogInBtn(){
     cy.get(btnBackToLogIn).click();
@@ -189,53 +189,53 @@ export function clickBackAtTheTop(){
 }
 
 export function checkGoBackBtnIsEnabled(){
-    Common_Actions.checkElementIsEnabled(btnGoBack);
+    CommonActions.checkElementIsEnabled(btnGoBack);
 }
 export function clickGoBackBtn(){
     cy.get(btnGoBack).click();
 }
 export function checkLblSuccessSingUp(lblNearChangePageText, lblChangeAuthText, lblEmailTitleText, lblEmailDescriprionText, lblResendText1, lbllResendEmailBtnText){
-    Common_Actions.checkElementText(lblNearChangePage, lblNearChangePageText);
-    Common_Actions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
-    Common_Actions.checkElementText(lblEmailTitle, lblEmailTitleText);
-    Common_Actions.checkElementText(lblEmailDescriprion, lblEmailDescriprionText);
-    Common_Actions.checkElementText(lblResendText, lblResendText1);
-    Common_Actions.checkElementText(btnResendEmail,lbllResendEmailBtnText);
+    CommonActions.checkElementText(lblNearChangePage, lblNearChangePageText);
+    CommonActions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
+    CommonActions.checkElementText(lblEmailTitle, lblEmailTitleText);
+    CommonActions.checkElementText(lblEmailDescriprion, lblEmailDescriprionText);
+    CommonActions.checkElementText(lblResendText, lblResendText1);
+    CommonActions.checkElementText(btnResendEmail,lbllResendEmailBtnText);
 }
 export function checkResendConfirmationEmailBtnIsEnabled(){
-    Common_Actions.checkElementIsEnabled(btnResendEmail);
+    CommonActions.checkElementIsEnabled(btnResendEmail);
 }
 export function clickResendConfirmationEmailBtn(){
     cy.get(btnResendEmail).click();
 }
 export function checkResendConfirmationEmailBtnNotExist(){
-    Common_Actions.checkElementIsAbsent(btnResendEmail);
+    CommonActions.checkElementIsAbsent(btnResendEmail);
 }
 export function checkLblCreateNewPassword(lblNearChangePageText, lblChangeAuthText, lblCreateNewPasswordHeadText, lblNewPasswordSubheadText, 
     lblNewPasswordText,lblConfirmPasswordText, lblResetPasswordBtnText){
-    Common_Actions.checkElementText(lblNearChangePage, lblNearChangePageText);
-    Common_Actions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
-    Common_Actions.checkElementText(lblHead, lblCreateNewPasswordHeadText);
-    Common_Actions.checkElementText(lbl1, lblNewPasswordSubheadText);
-    Common_Actions.checkElementText(lblEmailResetPswd, lblNewPasswordText, 0);
-    Common_Actions.checkElementText(lblEmailResetPswd, lblConfirmPasswordText, 1);
-    Common_Actions.checkElementText(btnSendResetLink,lblResetPasswordBtnText);
+    CommonActions.checkElementText(lblNearChangePage, lblNearChangePageText);
+    CommonActions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
+    CommonActions.checkElementText(lblHead, lblCreateNewPasswordHeadText);
+    CommonActions.checkElementText(lbl1, lblNewPasswordSubheadText);
+    CommonActions.checkElementText(lblEmailResetPswd, lblNewPasswordText, 0);
+    CommonActions.checkElementText(lblEmailResetPswd, lblConfirmPasswordText, 1);
+    CommonActions.checkElementText(btnSendResetLink,lblResetPasswordBtnText);
 }
 export function checkResetPasswordBtnEnabled(){
-    Common_Actions.checkElementIsEnabled(btnSendResetLink);
+    CommonActions.checkElementIsEnabled(btnSendResetLink);
 }
 export function checkResetPasswordBtnDisabled(){
-    Common_Actions.checkElementIsDisabled(btnSendResetLink);
+    CommonActions.checkElementIsDisabled(btnSendResetLink);
 }
 export function clickResetPasswordBtn(){
     cy.get(btnSendResetLink).click();
 }
 export function checkPlaceholdersPasswordConfirm(plhdNewPasswordText, plhdPasswordCofirmationText){
-    Common_Actions.checkPlaceholderText(fldNewPassword, plhdNewPasswordText);
-    Common_Actions.checkPlaceholderText(fldPasswordConfirmation, plhdPasswordCofirmationText);
+    CommonActions.checkPlaceholderText(fldNewPassword, plhdNewPasswordText);
+    CommonActions.checkPlaceholderText(fldPasswordConfirmation, plhdPasswordCofirmationText);
 }
 export function checkLblAfterResendingEmailConfirmation(lblAfterResendingEmailText){
-    Common_Actions.checkElementText(lblAfterResendingEmail, lblAfterResendingEmailText)
+    CommonActions.checkElementText(lblAfterResendingEmail, lblAfterResendingEmailText)
 }
 export function fillCreateNewPassword(newPasswordText, newPasswordConfirmationText, clearNewEmail = false, clearConfirmationPassword = false){
     cy.get(lblHead).click();
@@ -248,14 +248,14 @@ export function fillCreateNewPassword(newPasswordText, newPasswordConfirmationTe
 }
 export function checkLblInvalidResetLink(lblNearChangePageText, lblChangeAuthText, lblInvalidResetLinkHeadText, lblInvalidResetLinkSubheadText, 
     lblBackToResetPasswordText){
-    Common_Actions.checkElementText(lblNearChangePage, lblNearChangePageText);
-    Common_Actions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
-    Common_Actions.checkElementText(lblHeadInvalidResetLink, lblInvalidResetLinkHeadText);
-    Common_Actions.checkElementText(lbl1, lblInvalidResetLinkSubheadText);
-    Common_Actions.checkElementText(btnBackToResetPassword,lblBackToResetPasswordText);
+    CommonActions.checkElementText(lblNearChangePage, lblNearChangePageText);
+    CommonActions.checkElementText(btnChangeAuthPage, lblChangeAuthText);
+    CommonActions.checkElementText(lblHeadInvalidResetLink, lblInvalidResetLinkHeadText);
+    CommonActions.checkElementText(lbl1, lblInvalidResetLinkSubheadText);
+    CommonActions.checkElementText(btnBackToResetPassword,lblBackToResetPasswordText);
 }
 export function checkBackToResetPasswordBntEnabled(){
-    Common_Actions.checkElementIsEnabled(btnBackToResetPassword);
+    CommonActions.checkElementIsEnabled(btnBackToResetPassword);
 }
 export function clickBackToResetPasswordBtn(){
     cy.get(btnBackToResetPassword).click();
