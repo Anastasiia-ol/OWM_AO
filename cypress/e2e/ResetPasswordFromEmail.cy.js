@@ -232,5 +232,34 @@ describe('Reset Password - Mailosaur', () => {
              })      
          })
 
+        /* 
+        Test Steps:
+        1. Open email in Mailosour
+        2. Verify that subject, sender, email text are correct
+        */
+         it('Verify email for reset password', () => { 
+          
+           //
+           const emailHeader = `Forgot Your Password?`;
+            const emailText = `There was a request to change your password! Otherwise, please cliсk on the button below to change your password:`;
+            const lblResetPasswordBtn = 'Reset password';
+            cy.mailosaurGetMessage(serverId, {sentTo: emailData})
+            .then((email)=>{
+               expect(email.subject).to.equal('Forgot Your Password?');
+               expect(email.from[0].email).to.equal('hello@owm.ai'); 
+               expect(email.from[0].name).to.equal('OWM'); 
+               
+               const body = email.html.body;
+               cy.document().then((doc) => {
+                doc.write(body);
+                doc.close();
+                cy.get('h3').should('contain.text', emailHeader);
+                cy.get('p').should('contain.text', emailText);
+                cy.get('a').should('contain.text', lblResetPasswordBtn);
+               })
+            })        
+             
+       })
+
     })
 })
