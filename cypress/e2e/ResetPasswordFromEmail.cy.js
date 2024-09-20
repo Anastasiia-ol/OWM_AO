@@ -37,7 +37,7 @@ describe('Reset Password - Mailosaur', () => {
               btnBackToLogInBtnText: lblBackToLogInBtnData,
               step1: false   
             });
-            Auth.checkChangePageBtnEnabled();
+            Auth.checkSignUpBtnEnabled();
             Auth.checkBackToLogInBtnEnabled();
             Auth.checkBackAtTheTopEnabled();
           });
@@ -214,7 +214,7 @@ describe('Reset Password - Mailosaur', () => {
              .then((email)=>{
                 let confirmSignupLink = email.html.links[0].href;
                 cy.visit(confirmSignupLink);
-                Auth.changeAuthPage();
+                Auth.clickSignUpBtn();
                 CommonActions.waitForElementIsVisible(Auth.btnSingUp);
                 Auth.checkLabelsSignInPage({
                     signUpFlag: true,

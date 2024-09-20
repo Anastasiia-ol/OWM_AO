@@ -17,7 +17,7 @@ describe.skip('Auth - Mailosaur', () => {
 
         it('Fill Sign Up page.', () => {
             cy.visit('https://stage.owm.ai/auth');
-            Auth.changeAuthPage();
+            Auth.clickSignUpBtn();
             Auth.fillSignInPage({
               emailText: emailAddress,
               passwordText: passwordData
@@ -56,7 +56,7 @@ describe.skip('Auth - Mailosaur', () => {
               btnBackToLogInBtnText: lblBackToLogInBtnData,
               step1: false   
             });*/
-            Auth.checkChangePageBtnEnabled();
+            Auth.checkSignUpBtnEnabled();
             Auth.checkBackToLogInBtnEnabled();
             Auth.checkBackAtTheTopEnabled();
           });

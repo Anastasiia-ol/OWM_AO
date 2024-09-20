@@ -50,7 +50,7 @@ describe('Auth - Reset Password', () => {
             lblEmailText: lblEmailData, 
             lblSendResetLinkBtnText: lblSendResetLinkBtnData
           });
-          Auth.checkChangePageBtnEnabled();
+          Auth.checkSignUpBtnEnabled();
           Auth.checkSendResetLinkDisabled();
           Auth.checkPlaceholdersEmailPassword(plhdEmailData);
           Auth.fillEmailForResetPassword(emailData);
@@ -225,8 +225,8 @@ describe('Auth - Reset Password', () => {
           Auth.checkSendResetLinkEnabled();
           Auth.clickSendResetLinkBnt();
           CommonActions.waitForElementIsVisible(Auth.btnBackToLogIn);
-          Auth.checkChangePageBtnEnabled();
-          Auth.changeAuthPage();
+          Auth.checkSignUpBtnEnabled();
+          Auth.clickSignUpBtn();
           CommonActions.waitForElementIsVisible(Auth.btnSingUp);
           Auth.checkLabelsSignInPage({
             signUpFlag: true,

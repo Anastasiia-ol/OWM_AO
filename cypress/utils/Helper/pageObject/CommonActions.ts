@@ -71,4 +71,11 @@ export function waitForElementIsVisible(locator, wait_time = 10, index = 0, last
 export function waitForElementIsNotVisible(locator, wait_time = 5, index = 0) {
         cy.get(locator, {timeout: wait_time * 1000}).eq(index).should('not.be.visible', wait_time * 1000);
 }
+
+export function checkElementHasValue(locator, text, index = 0) {
+        cy.get(locator).eq(index).scrollIntoView().should('have.value', text)       
+}
+export function checkElementContainsValue(locator, text) {
+        cy.get(locator).invoke('attr', 'value').should('contain', text)
+}
     

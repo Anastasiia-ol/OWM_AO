@@ -33,7 +33,7 @@ describe('Auth - Mailosaur', () => {
             const lbllResendEmailBtnData = "Resend confirmation email";
 
             cy.visit('https://stage.owm.ai/auth');
-            Auth.changeAuthPage();
+            Auth.clickSignUpBtn();
             Auth.fillSignInPage({
               emailText: emailAddress,
               passwordText: passwordData
