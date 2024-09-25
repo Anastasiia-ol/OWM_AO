@@ -23,7 +23,8 @@ describe('Auth - Sign In', () => {
       const incorrectPasswordData = `Password is invalid`;
       const alertEmailData = `Incorrect format`;
       const alertPasswordData = `This field is required`;
-      let emailUnconfirmedData = `anastasia.oliyarnyk+ciwhcf@scrumlaunch.com`;
+      let emailUnconfirmedData = `anastasia.oliyarnyk+ciwhconf@scrumlaunch.com`;
+      // `anastasia.oliyarnyk+ciwhcf@scrumlaunch.com`;
       const errorMsgEmailConfirmationData = `Email comfirmation required!`;
 
         /*

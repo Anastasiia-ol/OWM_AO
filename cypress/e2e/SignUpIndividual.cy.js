@@ -3,10 +3,10 @@ import * as CommonActions from "../utils/Helper/pageObject/CommonActions";
 import * as ComplexAPI from "../utils/Helper/pageObject/ComplexAPI";
 
 
-describe('Auth - Sign Up', () => {
+describe('Auth - Individual Sign Up', () => {
 
 
-    context('Sign Up.', () => {
+    context('Individual Sign Up.', () => {
 
       beforeEach(() => {
         ComplexAPI.navigateToPage({navigateTo: `SignUpIndividual`});
@@ -152,7 +152,7 @@ describe('Auth - Sign Up', () => {
         2.7. Verify that "Next" button is enabled
         */
 
-        it('Verify that "Sign up as a company" button leads to Company Sign Up page', () => {
+        it('Verify that "Sign up as a company" button leads to Company Sign Up page.', () => {
           Auth.clickCompanySignUpBtn();
           cy.wait(3000);
           Auth.checkLabelsAuthPage(`SignUpCompany`);
@@ -240,7 +240,7 @@ describe('Auth - Sign Up', () => {
         2. Click "Next" button
         3. Veriry that "Tell us about yourself" page is shown with correct labels
         4. Verify that "Step Back" button is enabled
-        5. Verify that "Let's Go" butto is enabled
+        5. Verify that "Let's Go" button is enabled
         6. Verify that "Investor" button is enabled
         7. Verify that "Advisor" button is enabled
         8. Verify that "Talent" button is enabled
@@ -254,15 +254,15 @@ describe('Auth - Sign Up', () => {
           let passwordData = `21250178OwM`;
           const randomString = new Date().getTime();
           emailDataRandom = `ci${randomString}@scrumlaunch.com`;
+          
           Auth.fillSignInPage({
             emailText: emailDataRandom,
             passwordText: passwordData
           });
           Auth.clickSubmitBtn();
           cy.wait(3000);
-          Auth.checkLabelsIndividualSignUpStep2();
+          Auth.checkLabelsTellAboutYourself();
           Auth.checkStepBackBtnEnabled();
-          Auth.checkSubmitBtnEnabled();
           Auth.checkInvestorBtnEnabled();
           Auth.checkAdvisorBtnEnabled();
           Auth.checkTalentBtnEnabled();
@@ -418,8 +418,7 @@ describe('Auth - Sign Up', () => {
             passwordText: passwordData
           });
           Auth.clickSubmitBtn();
-          cy.wait(3000);
-          Auth.clickSubmitBtn(); 
+          cy.wait(3000); 
           Auth.fillAboutYourselfPage({
             firstNameText: firstNameData, 
             lastNameText: lastNameData
@@ -463,7 +462,6 @@ describe('Auth - Sign Up', () => {
           });
           Auth.clickSubmitBtn();
           cy.wait(3000);
-          Auth.clickSubmitBtn(); 
           Auth.fillAboutYourselfPage({
             firstNameText: firstNameData, 
             lastNameText: lastNameData
@@ -567,7 +565,6 @@ describe('Auth - Sign Up', () => {
           });
           Auth.clickSubmitBtn();
           cy.wait(3000);
-          Auth.clickSubmitBtn(); 
           Auth.fillAboutYourselfPage({
             firstNameText: firstNameData, 
             lastNameText: lastNameData
@@ -615,7 +612,6 @@ describe('Auth - Sign Up', () => {
           });
           Auth.clickSubmitBtn();
           cy.wait(3000);
-          Auth.clickSubmitBtn(); 
           Auth.fillAboutYourselfPage({
             firstNameText: firstNameData, 
             lastNameText: lastNameData

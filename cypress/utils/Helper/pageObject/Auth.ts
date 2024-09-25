@@ -38,7 +38,8 @@ const lblAfterResendingEmail =`span[class='text-button !text-success-500']`;
 
 const lblAboutYourself = `h1`;
 const lblFirstName = `label[for='input-user-name']`;
-const lblLastName = `label[for='input-email']`;
+const lblFirstName2 = `label[for='input-first-name']`;
+const lblLastName = `label[for='input-last-name']`;
 const lblPhoneNumber = `#phone-label`;
 const lblIAm = `#i-am-a-text`;
 const fldFirstName= `input[name = "firstName"]`;
@@ -51,6 +52,24 @@ const btnVendor = `#vendor-option`;
 const btnOtherOption= `#other-option`;
 const fldDescribeYourself = `#input-person-type`;
 const btnStepBack = `#step-back-button`;
+
+const btnFounder = ` #founder-option`;
+const btnExecutive = `#executive-option`;
+
+
+const fldCompanyName= `input[name="companyName"]`;
+const fldWebsite = `input[name="website"]`;
+const btnLLC = `#entity-type-llc`;
+const btnCCorp = `#entity-type-c-corp`;
+const btnNotYetIncorp = `#entity-type-not-yet-incorporated`;
+const chbDontHaveWebsite = `.checkbox`; 
+const chbDontHaveWebsite2 = `input[type='checkbox']`;
+const lblCompanyName = `#company-name-label`;
+const lblCompanyWebsite = `label[for='website-input']`;
+const lblDontHaveWebsite = `span[class='text !text-xs']`;
+const lblCompanyEntityType = `#company-entity-type-title`;
+
+const btnOutSpace = `.sc-4d8e5d38-0.krCFDj`;
 
 const lblHeadVerityEmail = `#verify-email-title`;
 const lblVerityEmailDescription1 = `#email-sent-desc`;
@@ -77,6 +96,12 @@ export const btnForgotPasswordGoBack=`#forgot-password-back-top-button`;
 export const lblHeadInvalidResetLink = `h1[class="text-center mb-[8px] mt-[24px]"]`;
 
 export const btnBackToResetPassword = `button[option="prim"]`;
+
+const btnAddNewCompany = `#add-new-company-button`;
+const lblHeaderExistingCompany = `#company-already-exists`;
+const lblExistingCompanyText = `#contact-email-text`;
+const lblExistngCompanyEmail = `#support-email-text`;
+const wndExistingCompany = `#modal-content`;
 
 export function clickSignUpBtn(){
     cy.get(btnSingUp).click();
@@ -164,17 +189,25 @@ export function checkLabelsAuthPage(authType) {
             cy.log(`Navigation page has not been provided.`)
     }
 }
-export function checkLabelsIndividualSignUpStep2(){
+export function checkLabelsTellAboutYourself(individual = true){
+    if (individual){
+        CommonActions.checkElementText(lblStep, `Step 2/2`);
+        CommonActions.checkElementText(btnInvestor, `Investor`);
+        CommonActions.checkElementText(btnTalent, `Talent`);
+        CommonActions.checkElementText(btnVendor, `Vendor`);
+        CommonActions.checkElementText(lblFirstName, `First name`);
+    }
+    else{
+        CommonActions.checkElementText(lblStep, `Step 3/3`);
+        CommonActions.checkElementText(btnFounder, `Founder/Co-Founder`);
+        CommonActions.checkElementText(btnExecutive, `Executive`);
+        CommonActions.checkElementText(lblFirstName2, `First name`);
+    }
     CommonActions.checkElementText(lblAboutYourself, `Tell us about yourself`);
-    CommonActions.checkElementText(lblStep, `Step 2/2`);
-    CommonActions.checkElementText(lblFirstName, `First name`);
     CommonActions.checkElementText(lblLastName, `Last name`);
-   // CommonActions.checkElementText(lblPhoneNumber, `Phone number (optional)`);
+    CommonActions.checkElementText(lblPhoneNumber, `Phone number (optional)`);
     CommonActions.checkElementText(lblIAm, `I’m a:`);
-    CommonActions.checkElementText(btnInvestor, `Investor`);
     CommonActions.checkElementText(btnAdvisor, `Advisor`);
-    CommonActions.checkElementText(btnTalent, `Talent`);
-    CommonActions.checkElementText(btnVendor, `Vendor`);
     CommonActions.checkElementText(btnOtherOption, `Other important person`);
     CommonActions.checkElementText(btnStepBack, `Step back`);
     CommonActions.checkElementText(btnSubmit, `Let’s Go`);   
@@ -203,6 +236,12 @@ export function checkVendorBtnEnabled(){
 export function checkOtherBtnEnabled(){
     CommonActions.checkElementIsEnabled(btnOtherOption);
 }
+export function checkFounderBtnEnabled(){
+    CommonActions.checkElementIsEnabled(btnFounder);
+}
+export function checkExecutiveBtnEnabled(){
+    CommonActions.checkElementIsEnabled(btnExecutive);
+}
 
 export function clickInvestorBtn(){
     cy.get(btnInvestor).click();
@@ -222,6 +261,13 @@ export function clickOtherBtn(){
 export function clickStepBackBtn(){
     cy.get(btnStepBack).click();
 }
+export function clickFounderBtn(){
+    cy.get(btnFounder).click();
+}
+export function clickExecutiveBtn(){
+    cy.get(btnExecutive).click();
+}
+
 export function fillAboutYourselfPage({firstNameText, lastNameText, phoneNumberText, otherText, clearPhoneNumber = false}){
     firstNameText? cy.get(fldFirstName).clear().type(firstNameText): `Parameter is not provided`;
     lastNameText? cy.get(fldLastName).clear().type(lastNameText): `Parameter is not provided`;
@@ -297,6 +343,89 @@ export function login(emailText, passwordText ){
     cy.visit('https://stage.owm.ai/auth');
     fillSignInPage({emailText, passwordText});
     clickSignInBtn();
+}
+
+export function checkLabelsTellAboutCompany(){
+    CommonActions.checkElementText(lblCompanyName, `Company name`);
+    CommonActions.checkElementText(lblCompanyWebsite, `Company website`);
+    CommonActions.checkElementText(lblDontHaveWebsite, `I don’t have a company website`);
+    CommonActions.checkElementText(lblCompanyEntityType, `Company entity type`);
+    CommonActions.checkElementText(btnLLC, `LLC`);
+    CommonActions.checkElementText(btnCCorp, `C Corp`);
+    CommonActions.checkElementText(btnNotYetIncorp, `Not yet incorporated`);
+    CommonActions.checkElementText(btnStepBack, `Step back`);
+    CommonActions.checkElementText(btnSubmit, `Next`);
+}
+export function checkLLCBtnEnabled(){
+    CommonActions.checkElementIsEnabled(btnLLC);
+}
+export function checkCCorpBtnEnabled(){
+    CommonActions.checkElementIsEnabled(btnCCorp);
+}
+export function checkNotYetIncorpBtnEnabled(){
+    CommonActions.checkElementIsEnabled(btnNotYetIncorp);
+}
+export function checkDontHaveWebsiteEnabled(){
+    CommonActions.checkElementIsEnabled(chbDontHaveWebsite);
+}
+export function checkDontHaveWebsiteNotSelected(){
+    CommonActions.checkElementIsNotSelected(chbDontHaveWebsite);
+}
+
+export function checkDontHaveWebsiteIsChecked(){
+    CommonActions.checkElementIsChecked(chbDontHaveWebsite2);
+}
+export function clickLLCBtn(){
+    cy.get(btnLLC).click();
+}
+export function clickCCorpBtn(){
+    cy.get(btnCCorp).click();
+}
+export function clickNotYetIncorpBtn(){
+    cy.get(btnNotYetIncorp).click();
+}
+export function clickDontHaveWebsite(){
+    cy.get(chbDontHaveWebsite).click();
+}
+export function checkCompanyWebsiteFldDisabled(){
+    CommonActions.checkElementIsDisabled(fldCompanyName);
+}
+export function checkPlaceholdersTellAboutCompany(){
+    CommonActions.checkPlaceholderText(fldCompanyName, `Select company`);
+    CommonActions.checkPlaceholderText(fldWebsite, `Enter your company website URL here`);
+}
+export function clickAddNewCompany(){
+    cy.get(btnAddNewCompany).click()
+}
+export function fillCompanyName(companyNameText, clear = false){
+    clear? cy.get(fldCompanyName).clear(): cy.get(fldCompanyName).clear().type(companyNameText)
+}
+export function fillWebsite(websiteText, clear){
+    clear? cy.get(fldWebsite).clear(): cy.get(fldWebsite).clear().type(websiteText)
+}
+
+export function checkDontHaveWebsiteChbx(){
+    cy.get(chbDontHaveWebsite).click()
+}
+export function checkLabelsExistingCompanyWindow(){
+    CommonActions.checkElementText(lblHeaderExistingCompany, `Hmm. This company already has an OWM account.`);
+    CommonActions.checkElementText(lblExistingCompanyText, `Contact jeff****@owm.ai to invite you to the company team account.`);
+    CommonActions.checkElementText(lblExistngCompanyEmail, `If you don’t know this person, contact us at support@owm.ai.`);
+}
+export function checkWindownIsAbsent(){
+    CommonActions.checkElementIsAbsent(wndExistingCompany);
+}
+export function checkNotYetIncorpBtnSelected(){
+    CommonActions.checkElementIsSelected(btnNotYetIncorp);
+}
+export function checkCompayNameValue(companyNameText){
+    CommonActions.checkElementHasValue(fldCompanyName, companyNameText);
+}
+export function checkWebsiteValue(websiteText){
+    CommonActions.checkElementHasValue(fldWebsite, websiteText);
+}
+export function checkWebsiteDisabled(){
+    CommonActions.checkElementIsDisabled(fldWebsite);
 }
 
 export function checkLabelsResetPasswordPage({lblNearChangePageText, lblChangeAuthText, lblHeadText, lbl1Text, 

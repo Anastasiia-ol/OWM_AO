@@ -19,3 +19,6 @@ const btnViewingAs = `#header-profile-dropdown-button`;
 export function checkWelcomeText (onlyWelcome = true, userNameText){
     onlyWelcome? CommonActions.checkElementContainText(lblWelcome, `Welcome`): CommonActions.checkElementText(lblWelcome, `Welcome ${userNameText}`)
 }
+export function clickViewingAsBtn(){
+    cy.get(btnViewingAs);
+}
