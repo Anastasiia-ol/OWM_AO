@@ -1,136 +1,100 @@
 import * as Auth from "../utils/Helper/pageObject/Auth";
 import * as Home from "../utils/Helper/pageObject/Home";
-import * as Common_Actions from "../utils/Helper/pageObject/Common_Actions";
+import * as CommonActions from "../utils/Helper/pageObject/CommonActions";
+import * as ComplexAPI from "../utils/Helper/pageObject/ComplexAPI";
 
 describe('Auth - Sign In', () => {
 
-
     context('Sign In.', () => {
-      const lblHeadData = "Sign in";
-      const lbl1Data = "Log into your OWM account.";
-      const lblNearChangePageData = "Don’t have an account?";
-      const lblTermsData = "By signing in, you agree to our Privacy Policy and Terms and Conditions.";
-      const lblOrData = "Or";
-      const lblChangeAuthData= "Sign up";
-      const lblSignInBtnData = "Sign in";
-      const lblEmailData = "Email address";
-      const lblPasswordData = "Password";
-      const lblRememberMeData = "Remember me";
-      const lblForgotPasswordData = "Forgot password?";
-      const lblContinueWithGoogleData = "Continue with Google";
-      const lblContinueWithLinkedInData = "Continue with LinkedIn";
-      const plhdEmailData = "Enter your email here";
-      const plhdPasswordData = "At least 8 characters";
-      const errorMsgEmailData = `Email is invalid!`;
-      const errorPasswordEmailData = `Password is invalid`;
-      let emailData = `anastasia.oliyarnyk+ci01@scrumlaunch.com`;
+
+      beforeEach(() => {
+        ComplexAPI.navigateToPage({navigateTo: `SignIn`});
+      });
+      
+      const authTypeData = `SignIn`;
+      const plhdEmailData = `Enter your email here`;
+      const plhdPasswordData = `At least 8 characters`;
+      const errorMsgEmailPasswordData = `Email or password is invalid!`
+      //const errorMsgEmailData = `Email is invalid!`;
+      //const errorPasswordEmailData = `Password is invalid`;
+      let emailData = `anastasia.oliyarnyk+ci01@scrumlaunch.com`; //registered user
+      let userFirstName = `CI`;
       let passwordData = `21250178OwM`;
       let nonExistentEmailData = `incorrect@scrumlaunch.com`;
       const incorrectPasswordData = `Password is invalid`;
-      const alertEmailData = "Incorrect format";
-      const alertPasswordData = "This field is required";
-      let emailUnconfirmedData = `anastasia.oliyarnyk+ciwhcf@scrumlaunch.com`;
-      const errorMsgEmailConfirmationData = "Email comfirmation required!";
-
-      //const lblHeadData ="Let’s get started";
-
+      const alertEmailData = `Incorrect format`;
+      const alertPasswordData = `This field is required`;
+      let emailUnconfirmedData = `anastasia.oliyarnyk+ciwhconf@scrumlaunch.com`;
+      // `anastasia.oliyarnyk+ciwhcf@scrumlaunch.com`;
+      const errorMsgEmailConfirmationData = `Email comfirmation required!`;
 
         /*
-        Test Description
+        Test Description:
+        Prerequisite:
+        1. Navigate to Auth page
     
         Test Steps:
-        1. Navigate to Auth page
-        2. Verify that labels on the Sing In page are shown with correct text
-        3. Verify that the email and password placeholders contain the correct text
-        4. Verify that "Sign Up" button to change page is enabled
-        5. Verify that "Remember Me" checkbox is not selected
-        6. Verify that "Forgot Password" button is enabled
-        7. Verify that "Sign In" button is disabled
-        8. Verify that "Continue With Google" button is enabled
-        9. Verify that "Continue with LinkedIn" button is enabled
+        1. Verify that labels on the Sing In page are shown with correct text
+        2. Verify that the email and password placeholders contain the correct text
+        3. Verify that "Sign Up" button to change page is enabled
+        4. Verify that "Remember Me" checkbox is not selected
+        5. Verify that "Forgot Password" button is enabled
+        6. Verify that "Sign In" button is disabled
+        7. Verify that "Continue With Google" button is enabled
+        8. Verify that "Continue with LinkedIn" button is enabled
   
         */
         it('Verify Sign In page labels and buttons status.', () => {
-          cy.visit('https://stage.owm.ai/auth');
-          Auth.checkLabelsSignInPage({
-            signUpFlag: false,
-            lblNearChangePageText: lblNearChangePageData, 
-            lblChangeAuthText: lblChangeAuthData,
-            lblHeadText: lblHeadData, 
-            lbl1Text: lbl1Data,
-             lblEmailText: lblEmailData, lblPasswordText: lblPasswordData,
-             lblRememberMeText: lblRememberMeData, 
-             lblForgotPasswordText: lblForgotPasswordData, 
-             lblSignInBtnText: lblSignInBtnData, 
-             lblTermsText: lblTermsData, 
-             lblOrText: lblOrData,
-             lblContinueWithGoogleText: lblContinueWithGoogleData, 
-             lblContinueWithLinkedInText: lblContinueWithLinkedInData});
-
-             Auth.checkPlaceholdersEmailPassword (plhdEmailData, plhdPasswordData);
-             Auth.checkChangePageBtnEnabled();
-             Auth.checkRememberMeChbIsNotSelected();
-             Auth.checkForgotPasswordBtnEnabled();
-             Auth.checkSignInBtnDisabled();
-             Auth.checkContinueWithGoogleBtnEnabled();
-             Auth.checkContinueWithLinkedIBtnEnabled();
-          
+          Auth.checkLabelsAuthPage(authTypeData);
+          Auth.checkPlaceholdersEmailPassword (plhdEmailData, plhdPasswordData);
+          Auth.checkSignUpBtnEnabled();
+          Auth.checkRememberMeChbIsNotSelected();
+          Auth.checkForgotPasswordBtnEnabled();
+          Auth.checkSignInBtnDisabled();
+          Auth.checkContinueWithGoogleBtnEnabled();
+          Auth.checkContinueWithLinkedIBtnEnabled();
         });
 
         /*
-        Test Description
+        Test Description:
+        Prerequisite:
+        1. Navigate to Auth page
     
         Test Steps:
-        1. Navigate to Auth page
-        2. Fill "Email address" and "Password" fields with icorrect data
+        1. Fill "Email address" with non-existent email
+        2. Fill "Password" fields
         3. Verify that "Sign In" button is enabled
         4. Click "Sign In" button
         5. Verify that error message is shown with correct text
         6. Verify that Sign In page is opened
         */
 
-        it('Verify an error message when sign in with incorrect email.', () => {
-          cy.visit('https://stage.owm.ai/auth');
-          
+        it('Verify an error message when sign in with non-existent email.', () => {
           Auth.fillSignInPage({
             emailText: nonExistentEmailData,
             passwordText: passwordData
           });
           Auth.checkSignInBtnEnabled();
           Auth.clickSignInBtn();
-          Auth.checkErrorMsg(errorMsgEmailData);
-          Auth.checkLabelsSignInPage({
-            signUpFlag: false,
-            lblNearChangePageText: lblNearChangePageData, 
-            lblChangeAuthText: lblChangeAuthData,
-            lblHeadText: lblHeadData, 
-            lbl1Text: lbl1Data,
-             lblEmailText: lblEmailData, lblPasswordText: lblPasswordData,
-             lblRememberMeText: lblRememberMeData, 
-             lblForgotPasswordText: lblForgotPasswordData, 
-             lblSignInBtnText: lblSignInBtnData, 
-             lblTermsText: lblTermsData, 
-             lblOrText: lblOrData,
-             lblContinueWithGoogleText: lblContinueWithGoogleData, 
-             lblContinueWithLinkedInText: lblContinueWithLinkedInData});
-    
+          Auth.checkErrorMsg(errorMsgEmailPasswordData);
+          Auth.checkLabelsAuthPage(authTypeData);
         });
 
         /*
-        Test Description
+        Test Description:
+        Prerequisite:
+        1. Navigate to Auth page
     
         Test Steps:
-        1. Navigate to Auth page
-        2. Fill "Email address"field with correct data
-        3. Fill "Password" field with icorrect data
-        4. Verify that "Sign In" button is enabled
-        5. Click "Sign In" button
-        6. Verify that error message is shown with correct text
-        7. Verify that Sign In page is opened
+        1. Fill "Email address"field with correct data
+        2. Fill "Password" field with icorrect data
+        3. Verify that "Sign In" button is enabled
+        4. Click "Sign In" button
+        5. Verify that error message is shown with correct text
+        6. Verify that Sign In page is opened
         */
 
         it('Verify an error message when sign in with incorrect password.', () => {
-          cy.visit('https://stage.owm.ai/auth');
           
           Auth.fillSignInPage({
             emailText: emailData,
@@ -138,30 +102,18 @@ describe('Auth - Sign In', () => {
           });
           Auth.checkSignInBtnEnabled();
           Auth.clickSignInBtn();
-          Auth.checkErrorMsg(errorPasswordEmailData);
-          Auth.checkLabelsSignInPage({
-            signUpFlag: false,
-            lblNearChangePageText: lblNearChangePageData, 
-            lblChangeAuthText: lblChangeAuthData,
-            lblHeadText: lblHeadData, 
-            lbl1Text: lbl1Data,
-             lblEmailText: lblEmailData, lblPasswordText: lblPasswordData,
-             lblRememberMeText: lblRememberMeData, 
-             lblForgotPasswordText: lblForgotPasswordData, 
-             lblSignInBtnText: lblSignInBtnData, 
-             lblTermsText: lblTermsData, 
-             lblOrText: lblOrData,
-             lblContinueWithGoogleText: lblContinueWithGoogleData, 
-             lblContinueWithLinkedInText: lblContinueWithLinkedInData});
+          Auth.checkErrorMsg(errorMsgEmailPasswordData);
+          Auth.checkLabelsAuthPage(authTypeData);
         });
 
         /*
-        Test Description
+        Test Description:
+        Prerequisite:
+        1. Navigate to Auth page
     
         Test Steps:
-        1. Navigate to Auth page
-        2. Fill "Email address" and "Password" fields with invalid data
-        3. Verify that "Sign In" button is enabled
+        1. Fill "Email address" and "Password" fields with invalid data
+        2. Verify that "Sign In" button is enabled
         3. Click "Sign In" button
         4. Verify that an alert is shown with correct text
         5. Verify that "Sign In" button is enabled
@@ -203,13 +155,14 @@ describe('Auth - Sign In', () => {
         });
 
         /*
-        Test Description
-    
-        Test Steps:
+        Test Description:
+        Prerequisite:
         1. Navigate to Auth page
-        2. Fill "Email address" and "Password" fields with correct data
-        5. Click "Sign In" button
-        6. Verify that Welcome text is shown
+
+        Test Steps:
+        1. Fill "Email address" and "Password" fields with correct data
+        2. Click "Sign In" button
+        3. Verify that Welcome text is shown
         */
         it('Verify successful login.', () => {
           cy.visit('https://stage.owm.ai/auth');
@@ -219,22 +172,24 @@ describe('Auth - Sign In', () => {
             passwordText: passwordData
           });
           Auth.clickSignInBtn();
-          Common_Actions.waitForElementIsVisible(Home.btnGetStarted);
-          Home.checkWelcomeText();
+          CommonActions.waitForElementIsVisible(Home.btnGetStarted);
+          Home.checkWelcomeText(userFirstName);
 
         });
 
-         /*
-        Test Description
+        /*
+        Test Description:
+        Prerequisite:
+        1. Navigate to Auth page
     
         Test Steps:
-        1. Navigate to Auth page
-        2. Fill "Email address" field with uncofirmed email 
-        3. Fill "Password" field with correct data
-        5. Click "Sign In" button
-        6. Verify error message is shown with correct data
+        1. Fill "Email address" field with uncofirmed email 
+        2. Fill "Password" field with correct data
+        3. Click "Sign In" button
+        4. Verify that the user is navigate to "You're almost done!" page when sign in with uncofirmed email 
         */
-        it('Verify an error message when sign in with uncofirmed email.', () => {
+
+        it('Verify the user is navigate to Almost done! page  when sign in with uncofirmed email.', () => {
           cy.visit('https://stage.owm.ai/auth');
           
           Auth.fillSignInPage({
@@ -242,10 +197,8 @@ describe('Auth - Sign In', () => {
             passwordText: passwordData
           });
           Auth.clickSignInBtn();
-          Auth.checkErrorMsg(errorMsgEmailConfirmationData); 
+          Auth.checkLblSingUpAlmostDone();
         });
-
-
     });
 
 });

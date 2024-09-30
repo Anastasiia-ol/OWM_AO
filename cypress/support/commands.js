@@ -59,6 +59,8 @@ import 'cypress-mailslurp';
 //Login
 //Cypress.Commands.add('login', (username, parrword)){}
 
+import 'cypress-mailosaur';
+
 
 // cypress/support/commands.ts
 import { domain as Auth0Domain } from '../../auth_config.json';

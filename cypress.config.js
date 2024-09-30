@@ -3,7 +3,7 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   
   env: {
-    "MAILOSAUR_API_KEY": "45422fd9b615157cf62274d9e05c53dea9438fd24fbfc1865cb4549473957605",
+   "MAILOSAUR_API_KEY": "OINAGTYZ2cIw3MQgzBtpTLkry2V4BGg1",
   },
   e2e: {
     setupNodeEvents(on, config) {
