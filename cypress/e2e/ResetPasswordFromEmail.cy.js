@@ -1,5 +1,6 @@
 import * as Auth from "../utils/Helper/pageObject/Auth";
 import * as CommonActions from "../utils/Helper/pageObject/CommonActions";
+import * as ComplexAPI from "../utils/Helper/pageObject/ComplexAPI";
 
 describe('Reset Password - Mailosaur', () => {
     context('Reset Password from Email via Mailosaur.', () => {
@@ -15,28 +16,14 @@ describe('Reset Password - Mailosaur', () => {
         let passwordData = `21250178OwM`;
         let emailData = `1724833137664@uksj5vnw.mailosaur.net`;
 
-          it('Verify that page with success message is shown after reset password.', () => {
-            const lblNearChangePageData = "Don’t have an account?";
-            const lblChangeAuthData= "Sign up";
-            const lblHeadResetPswdData = "Reset password";
-            const lbl2ResetPswData = "We've sent you an email with instructions on how to reset your password.";
-            const lblBackToLogInBtnData = "Back to log in";
-          
-            cy.visit('https://stage.owm.ai/auth');
-            Auth.clickForgotPasswordBtn();
+          it('Verify that page with success message is shown after reset password.', () => { 
+            ComplexAPI.navigateToPage({navigateTo: `ResetPassword`});
             CommonActions.waitForElementIsVisible(Auth.btnForgotPasswordGoBack);
             Auth.fillEmailForResetPassword(emailData);
             Auth.checkSendResetLinkEnabled();
             Auth.clickSendResetLinkBnt();
             CommonActions.waitForElementIsVisible(Auth.btnBackToLogIn);
-            Auth.checkLabelsResetPasswordPage({
-              lblNearChangePageText: lblNearChangePageData, 
-              lblChangeAuthText: lblChangeAuthData, 
-              lblHeadText: lblHeadResetPswdData, 
-              lbl1Text: lbl2ResetPswData, 
-              btnBackToLogInBtnText: lblBackToLogInBtnData,
-              step1: false   
-            });
+            Auth.checkLabelsResetPasswordPage(false);
             Auth.checkSignUpBtnEnabled();
             Auth.checkBackToLogInBtnEnabled();
             Auth.checkBackAtTheTopEnabled();
@@ -51,29 +38,15 @@ describe('Reset Password - Mailosaur', () => {
         */
 
           it('Retrive the link for reset password. Verify that page with success message is shown after reset password', () => { 
-            const lblNearChangePageData = "Don’t have an account?";
-            const lblChangeAuthData= "Sign up";
-            const lblCreateNewPasswordHeadDataText = "Create new password"; 
-            const lblNewPasswordSubheadText = "Enter and confirm your new password."; 
-            const lblNewPasswordText = "New password";
-            const lblConfirmPasswordText = "Password confirmation";
-            const lblResetPasswordBtnText = "Reset password";
-            const plhdNewPasswordData = "Create your new password";
-            const plhdPasswordCofirmationData = "Re-type your new password";
-
             cy.mailosaurGetMessage(serverId, {sentTo: emailData, subject: 'Forgot Your Password?'})
              .then((email)=>{
                 
                  let confirmSignupLink = email.html.links[0].href;
                  cy.visit(confirmSignupLink);
-                 Auth.checkLblCreateNewPassword (lblNearChangePageData, lblChangeAuthData, 
-                    lblCreateNewPasswordHeadDataText, lblNewPasswordSubheadText, 
-                    lblNewPasswordText,lblConfirmPasswordText, lblResetPasswordBtnText);
-                 Auth.checkPlaceholdersPasswordConfirm(plhdNewPasswordData, plhdPasswordCofirmationData);  
+                 Auth.checkLblCreateNewPassword();
+                 Auth.checkPlaceholdersPasswordConfirm();  
                  Auth.checkResetPasswordBtnDisabled();
-
-             })
-               
+             })           
          })
          /*
         Test Steps:
@@ -138,58 +111,7 @@ describe('Reset Password - Mailosaur', () => {
                  Auth.checkResetPasswordBtnDisabled();
              })           
          })
-        /*
-        Test Steps:
-        1. Navigate to Create New Password page from email
-        2. Fill "New Password" and "Password Confirmation" fields with correct data 
-        3. Click "Reset Password" button
-        4. Verify success message is shown
-        5. Verify that the user is navigated to Sign In page. The Sign In page is shown with correctt labels
-        */
-
-         it('Verify succesfull change password', () => { 
-          const lblNearChangePageSSUPData = "Don’t have an account?";
-          const lblChangeAuthSSUPData= "Sign up";
-          const lblHeadSIData = "Sign in";
-          const lblSI1Data = "Log into your OWM account.";
-          const lblRememberMeData = "Remember me";
-          const lblForgotPasswordData = "Forgot password?";
-          const lblSignInBtnData = "Sign in";
-          const lblTermsSIData = "By signing in, you agree to our Privacy Policy and Terms and Conditions.";
-          const lblPasswordData = "Password";
-          const lblOrData = "Or";
-          const lblContinueWithGoogleData = "Continue with Google";
-          const lblContinueWithLinkedInData = "Continue with LinkedIn";
-          const successMsgData = "Your password was changed successfully.";
-          const lblEmailData = "Email address";
-
-            cy.mailosaurGetMessage(serverId, {sentTo: emailData, subject: 'Forgot Your Password?'})
-             .then((email)=>{
-                let confirmSignupLink = email.html.links[0].href;
-                cy.visit(confirmSignupLink);
-                Auth.fillCreateNewPassword(passwordData, passwordData);
-                Auth.clickResetPasswordBtn();
-                Auth.checkErrorMsg(successMsgData);
-                CommonActions.waitForElementIsVisible(Auth.btnSignIn);
-                
-                Auth.checkLabelsSignInPage({
-                    signUpFlag: false,
-                    lblNearChangePageText: lblNearChangePageSSUPData, 
-                    lblChangeAuthText: lblChangeAuthSSUPData,
-                    lblHeadText: lblHeadSIData, 
-                    lbl1Text: lblSI1Data,
-                    lblEmailText: lblEmailData, 
-                    lblPasswordText: lblPasswordData,
-                    lblRememberMeText: lblRememberMeData, 
-                    lblForgotPasswordText: lblForgotPasswordData, 
-                    lblSignInBtnText: lblSignInBtnData, 
-                    lblTermsText: lblTermsSIData, 
-                    lblOrText: lblOrData,
-                    lblContinueWithGoogleText: lblContinueWithGoogleData, 
-                    lblContinueWithLinkedInText: lblContinueWithLinkedInData});
-                    })       
-         })
-
+        
         /*
         Test Steps:
         1. Navigate to Create New Password page
@@ -198,37 +120,13 @@ describe('Reset Password - Mailosaur', () => {
         */
 
          it('Verify "Sing Up" button at the top of Create New Password page leads to Sign Up page.', () => { 
-          const lblHeadData = "Let’s get started";
-          const lbl1Data = "Create your OWM account now!";
-          const lblNearChangePageData = "Already have an account?";
-          const lblTermsData = "By creating an account, you agree to our Privacy Policy and Terms and Conditions.";
-          const lblOrData = "Or";
-          const lblChangeAuthData =  "Sign in"; 
-          const lblSignUpBtnData = "I wanna Own it with OWM";
-          const lblEmailData = "Email address";
-          const lblPasswordData = "Password";
-          const lblContinueWithGoogleData = "Continue with Google";
-          const lblContinueWithLinkedInData = "Continue with LinkedIn";
-
             cy.mailosaurGetMessage(serverId, {sentTo: emailData, subject: 'Forgot Your Password?'})
              .then((email)=>{
                 let confirmSignupLink = email.html.links[0].href;
                 cy.visit(confirmSignupLink);
                 Auth.clickSignUpBtn();
-                CommonActions.waitForElementIsVisible(Auth.btnSingUp);
-                Auth.checkLabelsSignInPage({
-                    signUpFlag: true,
-                    lblNearChangePageText: lblNearChangePageData, 
-                    lblChangeAuthText: lblChangeAuthData,
-                    lblHeadText: lblHeadData, 
-                    lbl1Text: lbl1Data,
-                    lblEmailText: lblEmailData, 
-                    lblPasswordText: lblPasswordData,
-                    lblSignUpBtnText: lblSignUpBtnData, 
-                    lblTermsText: lblTermsData, 
-                    lblOrText: lblOrData,
-                    lblContinueWithGoogleText: lblContinueWithGoogleData, 
-                    lblContinueWithLinkedInText: lblContinueWithLinkedInData});
+                CommonActions.waitForElementIsVisible(Auth.btnSubmit);
+                Auth.checkLabelsAuthPage(`SignUpIndividual`);
              })      
          })
 
@@ -239,10 +137,6 @@ describe('Reset Password - Mailosaur', () => {
         */
          it('Verify email for reset password', () => { 
           
-           //
-           const emailHeader = `Forgot Your Password?`;
-            const emailText = `There was a request to change your password! Otherwise, please cliсk on the button below to change your password:`;
-            const lblResetPasswordBtn = 'Reset password';
             cy.mailosaurGetMessage(serverId, {sentTo: emailData})
             .then((email)=>{
                expect(email.subject).to.equal('Forgot Your Password?');
@@ -253,13 +147,35 @@ describe('Reset Password - Mailosaur', () => {
                cy.document().then((doc) => {
                 doc.write(body);
                 doc.close();
-                cy.get('h3').should('contain.text', emailHeader);
-                cy.get('p').should('contain.text', emailText);
-                cy.get('a').should('contain.text', lblResetPasswordBtn);
+                Auth.checkEmailResetPassword();
                })
             })        
              
        })
+       /*
+        Test Steps:
+        1. Navigate to Create New Password page from email
+        2. Fill "New Password" and "Password Confirmation" fields with correct data 
+        3. Click "Reset Password" button
+        4. Verify success message is shown
+        5. Verify that the user is navigated to Sign In page. The Sign In page is shown with correctt labels
+        */
 
-    })
-})
+        it('Verify succesfull change password', () => { 
+          const successMsgData = "Your password was changed successfully.";
+          
+            cy.mailosaurGetMessage(serverId, {sentTo: emailData, subject: 'Forgot Your Password?'})
+             .then((email)=>{
+                let confirmSignupLink = email.html.links[0].href;
+                cy.visit(confirmSignupLink);
+                Auth.fillCreateNewPassword(passwordData, passwordData);
+                Auth.clickResetPasswordBtn();
+                Auth.checkErrorMsg(successMsgData);
+                CommonActions.waitForElementIsVisible(Auth.btnSignIn);
+                Auth.checkLabelsAuthPage(`SignIn`);     
+          })
+        })
+
+      })
+
+  })

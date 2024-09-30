@@ -9,7 +9,7 @@ const lblHaveAccount = `#already-have-account-text`;
 const lblHaveAccount2 = `#already-have-account`;
 const btnCompanySignUp = `#company-sign-up`;
 const lblStep = `#step-text`;
-const btnSubmit = `#send-button`;
+export const btnSubmit = `#send-button`;
 const btnSignInOnSignUpPage = `#sign-in-button`;
 const btnIndividualSignUp =`#individual-sign-up`
 const lblNotACompany = `#not-a-company`;
@@ -88,7 +88,7 @@ const lblEmailTitle = `#email-sent-title`;
 const lblEmailDescriprion = `#email-sent-description`;
 const lblResendText = `#email-sent-resend-text`;
 const btnResendEmail=`#resend-email-button`;
-const lblHeadResetPswdStep2 = `#reset-password-title`;
+const lblDescResetPswdStep2 = `#reset-password-desc`;
 export const fldNewPassword = `input[name="password"]`;
 const fldPasswordConfirmation =`input[name="passwordConfirmation"]`;
 export const btnForgotPasswordGoBack=`#forgot-password-back-top-button`;
@@ -380,6 +380,7 @@ export function clickLLCBtn(){
 }
 export function clickCCorpBtn(){
     cy.get(btnCCorp).click();
+
 }
 export function clickNotYetIncorpBtn(){
     cy.get(btnNotYetIncorp).click();
@@ -428,19 +429,17 @@ export function checkWebsiteDisabled(){
     CommonActions.checkElementIsDisabled(fldWebsite);
 }
 
-export function checkLabelsResetPasswordPage({lblNearChangePageText, lblChangeAuthText, lblHeadText, lbl1Text, 
-    lblEmailText, lblSendResetLinkBtnText, btnBackToLogInBtnText, step1=true}){
-        CommonActions.checkElementText(lblNearSignUpBtn, lblNearChangePageText);
-        CommonActions.checkElementText(btnSingUp, lblChangeAuthText);
-        CommonActions.checkElementText(lbl1, lbl1Text);
+export function checkLabelsResetPasswordPage(step1 = true){
+        CommonActions.checkElementText(lblNearSignUpBtn, `Don’t have an account?`);
+        CommonActions.checkElementText(btnSingUp, `Sign up`);
         if (step1){
-            CommonActions.checkElementText(lblEmailResetPswd, lblEmailText);
-            CommonActions.checkElementText(lblHead, lblHeadText);
-            CommonActions.checkElementText(btnSendResetLink, lblSendResetLinkBtnText);
+            CommonActions.checkElementText(lbl1, `Enter your email and we'll send you a reset link.`);
+            CommonActions.checkElementText(lblEmailResetPswd, `Email address`);
+            CommonActions.checkElementText(lblHead, `Reset password`);
+            CommonActions.checkElementText(btnSendResetLink, `Send reset link`);
         } else{
-            CommonActions.checkElementText(btnBackToLogIn, btnBackToLogInBtnText);
-            CommonActions.checkElementText(lblHeadResetPswdStep2, lblHeadText);
-            
+            CommonActions.checkElementText(btnBackToLogIn, `Back to log in`);
+            CommonActions.checkElementText(lblDescResetPswdStep2, `We've sent you an email with instructions on how to reset your password.`);  
         }       
 }
 export function clickForgotPasswordBtn(){
@@ -498,25 +497,24 @@ export function checkResendEmailBtnIsEnabled(){
     CommonActions.checkElementIsEnabled(btnResendEmail);
 }
 
-export function clickResendConfirmationEmailAfterSignUpBtn(){
+export function clickResendConfirmationEmail(){
     cy.get(btnResendConfirmationEmail).click();
 }
 
-export function clickResendConfirmationEmailBtn(){
+/*export function clickResendConfirmationEmailBtn(){
     cy.get(btnResendEmail).click();
-}
+}*/
 export function checkResendConfirmationEmailBtnNotExist(){
     CommonActions.checkElementIsAbsent(btnResendConfirmationEmail);
 }
-export function checkLblCreateNewPassword(lblNearChangePageText, lblChangeAuthText, lblCreateNewPasswordHeadText, lblNewPasswordSubheadText, 
-    lblNewPasswordText,lblConfirmPasswordText, lblResetPasswordBtnText){
-    CommonActions.checkElementText(lblNearChangePage, lblNearChangePageText);
-    CommonActions.checkElementText(btnSingUp, lblChangeAuthText);
-    CommonActions.checkElementText(lblHead, lblCreateNewPasswordHeadText);
-    CommonActions.checkElementText(lbl1, lblNewPasswordSubheadText);
-    CommonActions.checkElementText(lblEmailResetPswd, lblNewPasswordText, 0);
-    CommonActions.checkElementText(lblEmailResetPswd, lblConfirmPasswordText, 1);
-    CommonActions.checkElementText(btnSendResetLink,lblResetPasswordBtnText);
+export function checkLblCreateNewPassword(){
+    CommonActions.checkElementText(lblNearSignUpBtn, `Don’t have an account?`);
+    CommonActions.checkElementText(btnSingUp, `Sign up`);
+    CommonActions.checkElementText(lblHead, `Create new password`);
+    CommonActions.checkElementText(lbl1, `Enter and confirm your new password.`);
+    CommonActions.checkElementText(lblEmailResetPswd, `New password`, 0);
+    CommonActions.checkElementText(lblEmailResetPswd, `Password confirmation`, 1);
+    CommonActions.checkElementText(btnSendResetLink, `Reset password`);
 }
 export function checkResetPasswordBtnEnabled(){
     CommonActions.checkElementIsEnabled(btnSendResetLink);
@@ -527,9 +525,9 @@ export function checkResetPasswordBtnDisabled(){
 export function clickResetPasswordBtn(){
     cy.get(btnSendResetLink).click();
 }
-export function checkPlaceholdersPasswordConfirm(plhdNewPasswordText, plhdPasswordCofirmationText){
-    CommonActions.checkPlaceholderText(fldNewPassword, plhdNewPasswordText);
-    CommonActions.checkPlaceholderText(fldPasswordConfirmation, plhdPasswordCofirmationText);
+export function checkPlaceholdersPasswordConfirm(){
+    CommonActions.checkPlaceholderText(fldNewPassword, `Create your new password`);
+    CommonActions.checkPlaceholderText(fldPasswordConfirmation, `Re-type your new password`);
 }
 export function checkLblAfterResendingEmailConfirmation(){
     CommonActions.checkElementText(lblAfterResendingEmail, `Sent`)
@@ -543,13 +541,12 @@ export function fillCreateNewPassword(newPasswordText, newPasswordConfirmationTe
     clearNewEmail? cy.get(fldNewPassword).clear(): `Parameter is not provided`;
     clearConfirmationPassword? cy.get(fldPasswordConfirmation).clear(): `Parameter is not provided`;   
 }
-export function checkLblInvalidResetLink(lblNearChangePageText, lblChangeAuthText, lblInvalidResetLinkHeadText, lblInvalidResetLinkSubheadText, 
-    lblBackToResetPasswordText){
-    CommonActions.checkElementText(lblNearChangePage, lblNearChangePageText);
-    CommonActions.checkElementText(btnSingUp, lblChangeAuthText);
-    CommonActions.checkElementText(lblHeadInvalidResetLink, lblInvalidResetLinkHeadText);
-    CommonActions.checkElementText(lbl1, lblInvalidResetLinkSubheadText);
-    CommonActions.checkElementText(btnBackToResetPassword,lblBackToResetPasswordText);
+export function checkLblInvalidResetLink(){
+    CommonActions.checkElementText(lblNearSignUpBtn, `Don’t have an account?`);
+    CommonActions.checkElementText(btnSingUp, `Sign up`);
+    CommonActions.checkElementText(lblHeadInvalidResetLink, `Apologies, the link you've attempted to use is expired.`);
+    CommonActions.checkElementText(lbl1, `The password reset link may be broken or has expired. If you still need to reset your password, kindly request a new link by revisiting the password reset page.`);
+    CommonActions.checkElementText(btnBackToResetPassword, `Back to reset password`);
 }
 export function checkBackToResetPasswordBntEnabled(){
     CommonActions.checkElementIsEnabled(btnBackToResetPassword);
@@ -558,3 +555,14 @@ export function clickBackToResetPasswordBtn(){
     cy.get(btnBackToResetPassword).click();
 }
 
+export function checkEmailCofirmation(){
+    cy.get('h1').should('contain.text', `Welcome to OWM.`);
+    cy.get('p').eq(0).should('contain.text', `Thank you for signing up for an OWM account! To ensure the security of your account and to provide you with uninterrupted access to our platform, we ask you to verify your email address.`);
+    cy.get('p').eq(1).should('contain.text', `This step enhances security measures by confirming your email ownership.`);
+    cy.get('a').should('contain.text', `Confirm email`);
+}
+export function checkEmailResetPassword(){
+    cy.get('h1').should('contain.text', `Forgot Your Password?`);
+    cy.get('p').should('contain.text', `There was a request to change your password! Otherwise, please cliсk on the button below to change your password:`);
+    cy.get('a').should('contain.text', 'Reset password');
+}

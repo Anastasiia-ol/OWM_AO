@@ -51,7 +51,7 @@ describe('Auth - Company Sign Up', () => {
         7. Verify that "Next" button is enabled
         */
 
-        it('Verify Sign Up page labels and buttons status.', () => {
+        it('Verify Sign Up page labels and buttons status on Step 1.', () => {
           Auth.checkLabelsAuthPage(authTypeData);
           Auth.checkPlaceholdersEmailPassword (plhdEmailData, plhdPasswordData);
           Auth.checkContinueWithGoogleBtnEnabled();
@@ -149,7 +149,7 @@ describe('Auth - Company Sign Up', () => {
         14. Remove data from "Email address" and "Password" fields
         15. Verify that alerts for required fileds are shown
         */
-        it('Verify required fields and fields validation.', () => {
+        it('Verify required fields and fields validation on Step 1.', () => {
           Auth.clickSubmitBtn();
           Auth.checkAlertForEmailPassword({alertEmailText: alertRequiredFieldData, alertPasswordText: alertRequiredFieldData});
           Auth.fillSignInPage({
@@ -275,7 +275,7 @@ describe('Auth - Company Sign Up', () => {
           const randomString = new Date().getTime();
           let emailDataRandom = `ci${randomString}@scrumlaunch.com`;
           let companyNameData = `Company Test ${randomString}`;
-          let websiteData = `www.companytest.com`;
+          let websiteData = `www.companytest${randomString}.com`;
           const alertCompanyNameRequiredData = `Required field`;
           const alertCompanyWebsiteRequiredData = `Please enter website address or press the checkbox`;
           const errorMsgCompanyTypeData = `Please choose company entity type`;
@@ -372,6 +372,52 @@ describe('Auth - Company Sign Up', () => {
         3. Click "Next" button on "Tell us about your company" page
         4. Fill company name
         5. Click "Add New Company" button
+        6. Fill "Website" field with already existing website
+        7. Click "LLC" button
+        8. Click "Next" button
+        9. Verify that error message is shown for already existing company
+        10. Click "OK, Go back" button
+        11. Verify that modal window is absent
+        12. Verify that the user is on "Tell us about your company" page.
+        */
+
+        it('Verify that error message is shown when the user tries to create the company with already existing website.', () => {
+          const randomString = new Date().getTime();
+          let emailDataRandom = `ci${randomString}@scrumlaunch.com`;
+          let companyNameData = `OWM`;
+          let existingWebsite = `https://owm.com`;
+          
+          Auth.fillSignInPage({
+            emailText: emailDataRandom,
+            passwordText: passwordData
+          });
+          Auth.clickSubmitBtn();
+          cy.wait(3000);
+          Auth.fillCompanyName(companyNameData);
+          Auth.clickAddNewCompany();
+          Auth.fillWebsite(existingWebsite);
+          Auth.clickLLCBtn();
+          Auth.clickSubmitBtn();
+          Auth.checkLabelsExistingCompanyWindow(); 
+          Auth.clickGoBackBtn();
+          Auth.checkWindownIsAbsent();   
+          Auth.checkLabelsTellAboutCompany();
+        });
+
+
+        /* 
+        Test Description:
+        Prerequisite:
+        1. Navigate to Auth page
+        2. Click "Sign up" button
+        3. Click "Sign up as a company" button
+
+        Test Steps:
+        1. Fill email and password with correct data
+        2. Click "Next" button
+        3. Click "Next" button on "Tell us about your company" page
+        4. Fill company name
+        5. Click "Add New Company" button
         6. Fill website
         7. Click "C-Corp" button
         8. Click "Next" button
@@ -389,7 +435,7 @@ describe('Auth - Company Sign Up', () => {
           const randomString = new Date().getTime();
           let emailDataRandom = `ci${randomString}@scrumlaunch.com`;
           let companyNameData = `Company Test ${randomString}`;
-          let websiteData = `www.companytest.com`;
+          let websiteData = `www.companytest${randomString}.com`;
           
           Auth.fillSignInPage({
             emailText: emailDataRandom,
@@ -448,7 +494,7 @@ describe('Auth - Company Sign Up', () => {
           const randomString = new Date().getTime();
           let emailDataRandom = `ci${randomString}@scrumlaunch.com`;
           let companyNameData = `Company Test ${randomString}`;
-          let websiteData = `www.companytest.com`;
+          let websiteData = `www.companytest${randomString}.com`;
 
           const alertEmailRequiredData = `First name is a required field`;
           const alertPasswordRequiredData = `Last name is a required field`;
@@ -534,7 +580,7 @@ describe('Auth - Company Sign Up', () => {
           const randomString = new Date().getTime();
           let emailDataRandom = `ci${randomString}@scrumlaunch.com`;
           let companyNameData = `Company Test ${randomString}`;
-          let websiteData = `www.companytest.com`;
+          let websiteData = `www.companytest${randomString}.com`;
           
           Auth.fillSignInPage({
             emailText: emailDataRandom,
@@ -565,124 +611,6 @@ describe('Auth - Company Sign Up', () => {
           Auth.clickStepBackBtn();
           Auth.checkWebsiteDisabled();
           Auth.checkDontHaveWebsiteIsChecked();
-        });
-
-         /* 
-        Test Steps:
-        1. Navigate to Auth page
-        2. Click "Sign Up" button
-        3. Fill email and password with correct data
-        4. Click "I wanna Own it with OWM" button
-        5. Verify that Back button is enabled
-        6. Click Back button
-        7. Verify that the user is navigated to Sign Up page. The Sign Up page is shown with correctt labels
-        */
-         it.skip('Verify Back button on Success Sign Up page leads to Sign Up page.', () => {
-       
-          const randomString = Math.random().toString(36).substring(2, 7);
-          const randomEmailData =  `anastasia.oliyarnyk+ci${randomString}@scrumlaunch.com`;
-          cy.log(`Generated Email: ${randomEmailData}`);
-          cy.visit('https://stage.owm.ai/auth');
-          Auth.clickSignUpBtn();
-          Auth.fillSignInPage({
-            emailText: randomEmailData,
-            passwordText: passwordData
-          });
-          Auth.clickSignUpBtn();
-         // cy.wait(3000);
-         CommonActions.waitForElementIsVisible(Auth.btnGoBack);
-          Auth.checkGoBackBtnIsEnabled();
-          Auth.clickGoBackBtn();
-         // cy.wait(3000);
-         CommonActions.waitForElementIsVisible(Auth.btnSingUp);
-          Auth.checkLabelsSignInPage({
-            signUpFlag: true,
-            lblNearChangePageText: lblNearChangePageData, 
-            lblChangeAuthText: lblChangeAuthData,
-            lblHeadText: lblHeadData, 
-            lbl1Text: lbl1Data,
-            lblEmailText: lblEmailData, 
-            lblPasswordText: lblPasswordData,
-            lblSignUpBtnText: lblSignUpBtnData, 
-            lblTermsText: lblTermsData, 
-            lblOrText: lblOrData,
-            lblContinueWithGoogleText: lblContinueWithGoogleData, 
-            lblContinueWithLinkedInText: lblContinueWithLinkedInData});
-        });
-
-         /* 
-        Test Steps:
-        1. Navigate to Auth page
-        2. Click "Sign Up" button
-        3. Fill email and password with correct data
-        4. Click "I wanna Own it with OWM" button
-        5. Verify that Back button is enabled
-        6. Click Back button
-        7. Verify that the user is navigated to Sign Up page. The Sign Up page is shown with correctt labels
-        */
-        it.skip('Verify "Sing In" button at the top of Success Sign Up page leads to Sign In page.', () => {
-       
-          const randomString = Math.random().toString(36).substring(2, 7);
-          const randomEmailData =  `anastasia.oliyarnyk+ci${randomString}@scrumlaunch.com`;
-
-
-          cy.log(`Generated Email: ${randomEmailData}`);
-          
-          Auth.fillSignInPage({
-            emailText: randomEmailData,
-            passwordText: passwordData
-          });
-          Auth.clickSignUpBtn();
-          CommonActions.waitForElementIsVisible(Auth.btnGoBack);
-          //cy.wait(3000);
-          Auth.clickSignUpBtn();
-          Auth.checkLabelsSignInPage({
-            signUpFlag: false,
-            lblNearChangePageText: lblNearChangePageSSUPData, 
-            lblChangeAuthText: lblChangeAuthSSUPData,
-            lblHeadText: lblHeadSIData, 
-            lbl1Text: lblSI1Data,
-             lblEmailText: lblEmailData, 
-             lblPasswordText: lblPasswordData,
-             lblRememberMeText: lblRememberMeData, 
-             lblForgotPasswordText: lblForgotPasswordData, 
-             lblSignInBtnText: lblSignInBtnData, 
-             lblTermsText: lblTermsSIData, 
-             lblOrText: lblOrData,
-             lblContinueWithGoogleText: lblContinueWithGoogleData, 
-             lblContinueWithLinkedInText: lblContinueWithLinkedInData});
-        });
-
-        /* 
-        Test Steps:
-        1. Navigate to Auth page
-        2. Click "Sign Up" button
-        3. Fill email and password with correct data
-        4. Click "I wanna Own it with OWM" button
-        5. Verify that "Send Confirmation Email"  button is enabled
-        6. Verify that "Send Confirmation Email" button is enabled
-        7. Verify page after send
-        */
-       
-
-        it.skip('Verify Resend Confirmation Email.', () => {
-          const randomString = Math.random().toString(36).substring(2, 7);
-          const randomEmailData =  `anastasia.oliyarnyk+ci${randomString}@scrumlaunch.com`;
-          const lblAfterResendingEmailData = "Sent";
-          cy.log(`Generated Email: ${randomEmailData}`);
-          cy.visit('https://stage.owm.ai/auth');
-          Auth.clickSignUpBtn();
-          Auth.fillSignInPage({
-            emailText: randomEmailData,
-            passwordText: passwordData
-          });
-          Auth.clickSignUpBtn(); 
-          CommonActions.waitForElementIsVisible(Auth.btnGoBack);
-          //cy.wait(3000);
-          Auth.checkResendConfirmationEmailBtnIsEnabled();
-          Auth.clickResendConfirmationEmailBtn(); Auth.clickResendConfirmationEmailBtn();
-          Auth.checkLblAfterResendingEmailConfirmation(lblAfterResendingEmailData);
-          Auth.checkResendConfirmationEmailBtnNotExist();
         });
 
     });

@@ -18,6 +18,7 @@ describe('Auth - Sign In', () => {
       //const errorMsgEmailData = `Email is invalid!`;
       //const errorPasswordEmailData = `Password is invalid`;
       let emailData = `anastasia.oliyarnyk+ci01@scrumlaunch.com`; //registered user
+      let userFirstName = `CI`;
       let passwordData = `21250178OwM`;
       let nonExistentEmailData = `incorrect@scrumlaunch.com`;
       const incorrectPasswordData = `Password is invalid`;
@@ -172,7 +173,7 @@ describe('Auth - Sign In', () => {
           });
           Auth.clickSignInBtn();
           CommonActions.waitForElementIsVisible(Home.btnGetStarted);
-          Home.checkWelcomeText();
+          Home.checkWelcomeText(userFirstName);
 
         });
 

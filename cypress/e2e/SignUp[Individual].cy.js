@@ -354,10 +354,10 @@ describe('Auth - Individual Sign Up', () => {
         2. Click "Next" button
         3. Fill First Name and Last Name fields with data
         4. Click "Investor" button
-        6. Click "Let's Go" button
-        7. Verify that the user is navigated to page "You’re human, right? Please verify your email." page.
-        8. Verify that page is shown with correct labels
-        9. Verify that "Resend Confirmation Email" button is enabled  
+        5. Click "Let's Go" button
+        6. Verify that the user is navigated to page "You’re human, right? Please verify your email." page.
+        7. Verify that page is shown with correct labels
+        8. Verify that "Resend Confirmation Email" button is enabled  
         */
 
         it('Verify successful investor registration.', () => {
@@ -657,8 +657,8 @@ describe('Auth - Individual Sign Up', () => {
           let passwordData = `21250178OwM`;
           const randomString = new Date().getTime();
           emailDataRandom = `ci${randomString}@scrumlaunch.com`;
-          let randomIncorrectPhoneNumberData = Math.random().toString().substring(2, 12);
-          cy.log(`Generated Phon Number: ${randomIncorrectPhoneNumberData}`);
+          let randomPhoneNumberData = Math.random().toString().substring(2, 12);
+          cy.log(`Generated Phon Number: ${randomPhoneNumberData}`);
           
           Auth.fillSignInPage({
             emailText: emailDataRandom,
@@ -670,13 +670,13 @@ describe('Auth - Individual Sign Up', () => {
           Auth.fillAboutYourselfPage({
             firstNameText: firstNameData, 
             lastNameText: lastNameData,
-            phoneNumberText: randomIncorrectPhoneNumberData
+            phoneNumberText: randomPhoneNumberData
           });
           Auth.clickInvestorBtn();
           Auth.clickSubmitBtn();
           CommonActions.waitForElementIsVisible(Auth.btnResendConfirmationEmail);
           Auth.checkLblSuccessSingUp();
-          Auth.clickResendConfirmationEmailAfterSignUpBtn()
+          Auth.clickResendConfirmationEmail()
           Auth.checkLblSuccessSingUp(true);
           Auth.checkResendConfirmationEmailBtnNotExist();
         });

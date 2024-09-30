@@ -16,11 +16,16 @@ export function navigateToPage({navigateTo, env = 'stage' }) {
             break;
         case `SignUpCompany`:
             url = `https://${env}.owm.ai/auth`;
-            cy.log(`URL is: ${url}`);
             cy.visit(url);
             Auth.clickSignUpBtn();
             Auth.clickCompanySignUpBtn();
             break;
+        case `ResetPassword`:
+            url = `https://${env}.owm.ai/auth`;
+            cy.visit(url);
+            Auth.clickForgotPasswordBtn();
+            break;
+            
        
         case `Home`:
             url = `https://${env}.owm.ai/auth`;
@@ -31,4 +36,11 @@ export function navigateToPage({navigateTo, env = 'stage' }) {
         default:
             cy.log(`Navigation page has not been provided.`)
     }
+}
+export function deleteToken(){
+    cy.window().then((window) => {
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+      });
+    cy.clearCookies();
 }
